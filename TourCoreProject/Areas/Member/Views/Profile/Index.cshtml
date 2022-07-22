@@ -1,0 +1,35 @@
+﻿@model TourCoreProject.Areas.Member.Models.UserEditVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1>Profile Edit Page</h1>
+<form method="post" enctype="multipart/form-data">
+    @Html.Label("Name")
+    <input type="text" asp-for="Name" class="form-control"/>
+    <br />
+      @Html.Label("Surname")
+    <input type="text" asp-for="Surname" class="form-control"/>
+    <br />
+      @Html.Label("E-mail")
+    <input type="text" asp-for="Email" class="form-control"/>
+    <br />
+      @Html.Label("Password")
+    <input type="text" asp-for="Password" class="form-control"/>
+    <br />
+      @Html.Label("Confirm Password")
+    <input type="text" asp-for="ConfirmPassword" class="form-control"/>
+    <br />
+      @Html.Label("Phone Number")
+    <input type="text" asp-for="PhoneNumber" class="form-control"/>
+    <br />
+    <div class="form-group">
+        <label>Choose a Photo</label>
+        <input type="file" asp-for="Image" />
+    </div>
+    <br />
+    <button class="btn btn-primary">Update Profile</button>
+</form>
+
+

@@ -55,11 +55,23 @@ namespace TourCoreProject.Controllers
         {
             return View(); 
         }
-        
-        //[HttpPost]
-        //public IActionResult SignIn()
-        //{
-        //    return View();
-        //}
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(UserSignInVM p)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(p.Username, p.Password,false,false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Profile", new {area="Member"});
+                }
+                else
+                {
+                    return RedirectToAction("SignIn", "Login");
+                }
+            }
+            return View();
+        }
     }
 }

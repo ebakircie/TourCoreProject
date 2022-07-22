@@ -426,6 +426,43 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Newsletters");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Reservation", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservationId"), 1L, 1);
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destination")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ReservationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TotalPerson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ReservationId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Reservations");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.SubAbout", b =>
                 {
                     b.Property<int>("SubAboutId")
@@ -589,6 +626,17 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Destination");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.Reservation", b =>
+                {
+                    b.HasOne("EntityLayer.Concrete.AppUser", "AppUser")
+                        .WithMany("Reservations")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("EntityLayer.Concrete.AppRole", null)
@@ -638,6 +686,11 @@ namespace DataAccessLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.AppUser", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Destination", b =>
