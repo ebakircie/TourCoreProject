@@ -15,7 +15,7 @@ namespace DataAccessLayer.Concrete
         {
             optionsBuilder.UseSqlServer("server=.;database=TourDB;integrated security=true");
         }
-        
+         
         public DbSet<About> Abouts { get; set; }
         public DbSet<About2> Abouts2 { get; set; }
         public DbSet<Contact> Contacts { get; set; }
